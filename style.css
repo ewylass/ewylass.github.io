@@ -1,0 +1,168 @@
+/* Plain academic style: one column, system sans-serif, classic blue links. */
+
+:root {
+  --text: #111;
+  --muted: #555;
+  --bg: #fff;
+  --link: #0000ee;
+  --rule: #ddd;
+  color-scheme: light;   /* always light, whatever the visitor's system setting */
+}
+
+html { font-size: 112.5%; }   /* 18px base */
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+main {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 4rem;
+}
+
+a, a:visited { color: var(--link); }
+a:hover { text-decoration-thickness: 2px; }
+
+h1 {
+  font-size: 2.6rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+h1 a { text-decoration: none; color: inherit; }
+
+h2 {
+  font-size: 1.35rem;
+  margin: 2.75rem 0 0.75rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.masthead {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  margin-bottom: 2rem;
+}
+.masthead-figure {
+  max-height: 6.5rem;
+  max-width: 100%;
+}
+
+/* Lists of papers, drafts, handouts */
+.entries {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.entries li { margin-bottom: 1.2rem; }
+
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.blurb { margin: 0.25rem 0 0; }
+
+/* Collapsible descriptions: the arrow before the title toggles the blurb */
+.abstract summary {
+  cursor: pointer;
+  padding-left: 1.2rem;
+  list-style: none;          /* hide the default triangle; drawn below instead */
+  position: relative;
+}
+.abstract summary::-webkit-details-marker { display: none; }   /* Safari */
+.abstract summary::before {
+  content: "\25B6";          /* ▶ */
+  position: absolute;
+  left: 0;
+  font-size: 0.7em;
+  top: 0.35em;
+  color: var(--link);
+  transition: transform 0.15s;
+}
+.abstract[open] summary::before { transform: rotate(90deg); }   /* ▼ when open */
+.abstract .blurb {
+  font-size: calc(1em - 1.5pt);
+  margin: 0.3rem 0 0 1.2rem;  /* indented to line up with the title */
+}
+
+/* Notes list */
+.note { margin-bottom: 1.75rem; }
+
+.contact { padding-left: 1.5rem; }
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Individual note pages ---------- */
+
+.back { font-size: 0.95rem; margin: 0 0 2rem; }
+
+.post h1 { font-size: 2.1rem; }
+.post .meta { margin: 0.5rem 0 2rem; }
+
+.post h2 { font-size: 1.3rem; margin-top: 2.25rem; }
+
+.post blockquote {
+  margin: 1.25rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+.post pre, .post code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+.post pre {
+  overflow-x: auto;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rule);
+}
+
+/* Theorem-style blocks */
+.thm, .defn, .proof { margin: 1.25rem 0; }
+.thm > .label, .defn > .label { font-weight: 700; }
+.thm { font-style: italic; }
+.thm > .label { font-style: normal; }
+.proof > .label { font-style: italic; }
+.proof::after { content: "\220E"; float: right; }   /* end-of-proof square */
+
+/* Footnotes */
+.fn-ref, .fn-sep { font-size: 0.72em; line-height: 0; }
+.fn-ref a { text-decoration: none; padding: 0 0.1em; }
+.footnotes {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+}
+.footnotes ol { margin: 0; padding-left: 1.4rem; }
+.footnotes li { margin-bottom: 0.8em; }
+.footnotes li:last-child { margin-bottom: 0; }
+.fn-back { text-decoration: none; margin-left: 0.2em; }
+.footnotes li:target, .fn-ref:target { background: #fff3c4; }
+.fn-ref, .footnotes li { scroll-margin-top: 1.5rem; }
+
+/* Keep wide display maths from breaking the layout on phones */
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.25rem 0; }
+
+@media (max-width: 480px) {
+  h1 { font-size: 2.1rem; }
+  main { padding-top: 2rem; }
+}
