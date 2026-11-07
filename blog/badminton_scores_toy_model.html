@@ -1,0 +1,59 @@
+
+Badminton scores toy model · HTML
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Badminton scores: a toy model — Ewy Tsun's blog</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="alternate" type="application/atom+xml" title="Ewy Tsun's blog" href="../atom.xml">
+ 
+  <!-- Maths: \( … \) inline and \[ … \] display, rendered by KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      renderMathInElement(document.body, {
+        delimiters: [
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false}
+        ],
+        throwOnError: false
+      });
+    });
+  </script>
+</head>
+<body>
+<main class="post">
+ 
+  <p class="back"><a href="../index.html">&larr; Ewy Tsun's blog</a></p>
+ 
+  <h1>Badminton scores: a toy model</h1>
+  <div class="meta">2026-11-07</div>
+ 
+  <!-- note-body: written with Note Desk -->
+  <p>Recently I was struck by the observation that even (or especially?) at the very highest level of the sport, badminton games tend to have rather lopsided scores. Thus (even) among players of roughly the same standing, for a game to terminate in a score of 21-14 is something no-one, I think, would bat an eye at; and 21-\(n\) with \(n \leq 10\) is not especially uncommon either. [Look at the table <a href="https://en.wikipedia.org/wiki/Lee%E2%80%93Lin_rivalry#List_of_all_head-to-head_matches">here</a>, for instance: of the first 20 matches listed, no.'s 6, 8, 10, 12-17 and 20 illustrate this phenomenon.]</p>
+ 
+  <p>I don't know that anyone should be <em>surprised</em> by this observation, exactly, but I found it at least slightly curious. (One might, naively, expect that if the skill levels of the players were just about equal, so too would be their point tallies in any game.) So I thought it might be worth noting that this is basically what's predicted by the obvious toy model.</p>
+ 
+  <p>To wit: say that Alice and Bob play a repeated coin-flipping game, wherein if 21 heads (not necessarily consecutive) land before 21 tails do, Alice wins, otherwise Bob does; and the score of the game is \(m\)-\(n\) iff when it ends, there've been \(m\) heads and \(n\) tails. We suppose the flips are independent and that on each flip there is a probability \(p\) of heads.<sup class="fn-ref" id="fnref1"><a href="#fn1">1</a></sup></p>
+ 
+  <p>What can we say about the loser's score \(L\)? This is a mixture of two (truncated) negative binomial distributions: \(P(L = n) = \binom{20+n}{n} [p^{21} (1-p)^n + (1-p)^{21}p^n]\), for \(0 \leq n \leq 20\). What's important, with respect to our initial observation, is that even with \(p = 0.5\), \(P(L \leq 14)\) is nontrivial – around 0.31. When \(p = 0.6\) this climbs to 0.59, with \(P(L \leq 9) \approx 0.18\); when \(p = 0.65\), it climbs to 0.79, with \(P(L \leq 9) \approx 0.36\).</p>
+ 
+  <p>The model also tells us how observing a score of \(m\)-\(n\) should shift your estimate of \(p\). Since the likelihood of score \(m\)-\(n\) is proportional to \(p^m (1-p)^n\), if you begin with a flat prior<sup class="fn-ref" id="fnref2"><a href="#fn2">2</a></sup> your posterior distribution should be \(\mathrm{Beta}(m+1, n+1)\), so that after observing, say, a 21-14 game, your posterior mean should be \(22/(22+15) \approx 0.59\) (with 95% credible interval \([0.43, 0.74]\)).</p>
+ 
+  <p>[For what it's worth: how, on this model, does \(P(\text{Alice wins})\) increase with \(p\)? As can easily be checked, when \(p = 0.55\), Alice wins about three games in four; when \(p = 0.6\), she wins about nine games in ten; and when \(p = 0.65\), she wins around 98% of the time. Once we account for the fact that a match is best of three games, the numbers become even starker – at \(p = 0.55\), Alice wins around 83% of her matches against Bob. So a small edge at the level of individual rallies (points) can work out to a fairly large match edge.]</p>
+ 
+  <section class="footnotes">
+    <ol>
+      <li id="fn1">We're ignoring deuces, for convenience. <a class="fn-back" href="#fnref1" aria-label="Back to the text">&#8617;&#xFE0E;</a></li>
+      <li id="fn2">With elite players, a prior concentrated around 0.5 might be more realistic; in that case, the posterior estimate would move even less. <a class="fn-back" href="#fnref2" aria-label="Back to the text">&#8617;&#xFE0E;</a></li>
+    </ol>
+  </section>
+  <!-- /note-body -->
+ 
+  <footer><a href="../index.html">Back to the blog</a></footer>
+ 
+</main>
